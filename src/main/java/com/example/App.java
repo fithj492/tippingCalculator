@@ -5,12 +5,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets; 
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Group;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane; 
 import javafx.scene.text.Text; 
 import javafx.scene.control.TextField; 
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -25,32 +33,42 @@ public class App extends Application {
 
     private static Scene scene;
 
+
+	public static double tip(double billAmt, double percentage) {
+		return billAmt * (percentage/100);
+
+	}
+
+
     @Override
     public void start(Stage stage) throws IOException {
         
         StackPane layout = new StackPane();
         Button plusbutton = new Button("+");
         Button minusbutton = new Button("-");
-        Button plusbutton2 = new Button("+");
-        Button minusbutton2 = new Button("-");
-        Button plusbutton3 = new Button("+");
-        Button minusbutton3 = new Button("-");
-        Label label4 = new Label(" 1.5$ per person");  
+        
+        Label label = new Label("     15$");  
+        Label label1 = new Label(" 1.5$ per person");  
+        Label label2 = new Label("     10%");  
+        Label label3 = new Label("     1");  
+        Spinner cost = new Spinner(1, 12, 4);
+        Spinner percent = new Spinner(1, 31, 4);
         minusbutton.setPrefSize(20, 20);
         stage.setScene(scene);
         stage.show();
         stage.setTitle("CodersLegacy");
         layout.getChildren().addAll(plusbutton);
         layout.getChildren().addAll(minusbutton);
-        layout.getChildren().addAll(label4);
+        layout.getChildren().addAll(label);
         Text text1 = new Text("cost");
         Text text2 = new Text("percentage");
-        Text text3 = new Text("people");
-        TextField textField1 = new TextField("     15$");       
-        TextField textField2 = new TextField("     10%");   
-        TextField textField3 = new TextField("     1");  
-    
-
+        Text text3 = new Text("people");     
+        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
+        label.setFont(font);
+        cost.setEditable(true);
+        percent.setEditable(true);
+        cost.setPrefSize(75, 25);
+        percent.setPrefSize(75, 25);
         //Creating a Grid Pane 
       GridPane gridPane = new GridPane();    
 
@@ -69,32 +87,27 @@ public class App extends Application {
 
       //Arranging all the nodes in the grid 
       gridPane.add(text1, 0, 0); 
-      gridPane.add(textField1, 1, 0); 
+      gridPane.add(label1, 1, 0); 
       gridPane.add(minusbutton, 1, 0); 
       gridPane.add(plusbutton, 3, 0); 
-      gridPane.add(label4, 4, 0); 
+      gridPane.add(label, 4, 0); 
       gridPane.add(text2, 0, 1);       
-      gridPane.add(textField2, 1, 1); 
-      gridPane.add(minusbutton2, 1, 1); 
-      gridPane.add(plusbutton2, 3, 1); 
+      gridPane.add(label2, 1, 1); 
+      
       gridPane.add(text3, 0, 2);       
-      gridPane.add(textField3, 1, 2); 
-      gridPane.add(minusbutton3, 1, 2); 
-      gridPane.add(plusbutton3, 3, 2); 
+      gridPane.add(label3, 1, 2); 
+      
 
 
       //Styling nodes  
       plusbutton.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;"); 
       minusbutton.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;"); 
-      plusbutton2.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;"); 
-      minusbutton2.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;"); 
-      plusbutton3.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;"); 
-      minusbutton3.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;"); 
+      
 
       text1.setStyle("-fx-font: normal bold 10px 'sans-serif' "); 
       text2.setStyle("-fx-font: normal bold 10px 'sans-serif' ");  
       text3.setStyle("-fx-font: normal bold 10px 'sans-serif' ");  
-      label4.setStyle("-fx-font: normal bold 20px 'sans-serif' ");  
+      label.setStyle("-fx-font: normal bold 20px 'sans-serif' ");  
       gridPane.setStyle("-fx-background-color: #999999;"); 
 
       //Creating a scene object 
@@ -105,7 +118,11 @@ public class App extends Application {
       stage.setScene(scene);
          
       stage.show();
-         
+       
+      
+
+
+
     }
 
 

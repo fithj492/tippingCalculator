@@ -16,7 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-//import javafx.scene.control.Button;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
 
@@ -40,6 +41,20 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // new int variables
+
+        Spinner<Integer> cost = new Spinner<Integer>();
+        SpinnerValueFactory<Integer> damageInputValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999);
+        cost.setValueFactory(damageInputValueFactory);
+
+        Spinner<Integer> percent = new Spinner<Integer>();
+        SpinnerValueFactory<Integer> strengthInputValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999);
+        percent.setValueFactory(strengthInputValueFactory);
+
+        Spinner<Integer> people = new Spinner<Integer>();
+        SpinnerValueFactory<Integer> critDamageInputValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999);
+        people.setValueFactory(critDamageInputValueFactory);
+
+
         // new objects
         StackPane layout = new StackPane();
         
@@ -47,16 +62,13 @@ public class App extends Application {
         Label label1 = new Label(" 1.5$ per person");  
         Label label2 = new Label("     10%");  
         Label label3 = new Label("     1");  
-        //Label outPutLabel = new Label();
-        Spinner cost = new Spinner(1, 500, 4);
-        Spinner percent = new Spinner(1, 200, 4);
-        Spinner people = new Spinner(1, 30, 4);
+        Label outPutLabel = new Label("hello");
         HBox hbox = new HBox(5);
         VBox vbox = new VBox();
         Text text1 = new Text("cost");
         Text text2 = new Text("percentage");
         Text text3 = new Text("people");     
-        //Button calculateButton = new Button("Calculate");
+        Button calculateButton = new Button("Calculate");
 
         // scene stuff
         stage.setScene(scene);
@@ -82,7 +94,23 @@ public class App extends Application {
         people.setPrefSize(75, 25);
 
 
+        //calculating button work
 
+        calculateButton.setOnAction(action -> {
+            //Get Inputs
+            double damage = cost.getValue();
+            double strength = percent.getValue();
+            double critDamage = people.getValue();
+
+            //Results
+            double damageOutput = ((damage + 5) * (1 + strength/100));
+            double critDamageOutput = ((damage + 5) * (1 + strength/100)) * (1 + critDamage/100);
+            String damageOutputString = "" + damageOutput;
+            String critDamageOutputString = "" + critDamageOutput;
+            //Display
+            outPutLabel.setText(damageOutputString);
+            outPutLabel.setText(critDamageOutputString);
+        });
 
         //Creating a Grid Pane 
       GridPane gridPane = new GridPane();    
@@ -107,7 +135,8 @@ public class App extends Application {
       gridPane.add(people, 1, 2); 
       gridPane.add(label, 4, 0); 
       gridPane.add(text2, 0, 1);        
-      gridPane.add(text3, 0, 2);       
+      gridPane.add(text3, 0, 2);      
+      gridPane.add(outPutLabel, 3, 0);   
 
       
 

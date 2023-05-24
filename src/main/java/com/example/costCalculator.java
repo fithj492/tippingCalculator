@@ -51,7 +51,7 @@ public class costCalculator extends Application  {
            
             //Results
             double costOutput = ((cost) / (percentage));
-            double amountOfPeopleOutput = ((cost) * (1 + percentage/100)) / (amountOfPeople) - (cost);
+            double amountOfPeopleOutput = ((cost) * (percentage/100)) / (amountOfPeople);
             String costOutputString = "" + (costOutput);
             String amountOfPeopleOutputString = "" + amountOfPeopleOutput;
             //Display
